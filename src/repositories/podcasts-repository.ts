@@ -1,23 +1,37 @@
-import fs from "fs";
-import path from "path";
-
+import { promises as fs } from "fs";
+import * as path from "path";
 import { PodcastModel } from "../models/podcast-model";
 
-const pathData = path.join(__dirname, "../repositories/podcasts.json");
+const DATA_PATH = path.join(process.cwd(), "src", "repositories", "podcasts.json");
+
+let cachedData: PodcastModel[] | null = null;
+
+const loadPodcastData = async (): Promise<PodcastModel[]> => {
+  if (cachedData) {
+    return cachedData;
+  }
+
+  try {
+    const rawData = await fs.readFile(DATA_PATH, "utf-8");
+    cachedData = JSON.parse(rawData) as PodcastModel[];
+    return cachedData;
+  } catch (error) {
+    console.error("Error loading podcast data:", error);
+    console.error("Attempted path:", DATA_PATH);
+    return [];
+  }
+};
 
 export const repositoryPodcast = async (
   podcastName?: string
 ): Promise<PodcastModel[]> => {
-  const language = "utf-8";
+  const data = await loadPodcastData();
 
-  const rawData = fs.readFileSync(pathData, language);
-  let jsonFile = JSON.parse(rawData);
-
-  if (podcastName) {
-    jsonFile = jsonFile.filter(
-      (podcast: PodcastModel) => podcast.podcastName === podcastName
-    );
+  if (!podcastName) {
+    return data;
   }
 
-  return jsonFile;
+  return data.filter(
+    (podcast) => podcast.podcastName.toLowerCase() === podcastName.toLowerCase()
+  );
 };

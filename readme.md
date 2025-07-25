@@ -1,21 +1,87 @@
-# Podcast Manager
+# Podcast Manager API
 
-## Descrição
+A modern TypeScript Node.js REST API for podcast management without external frameworks.
 
-O Podcast Manager é uma aplicação inspirada no estilo da Netflix, que permite centralizar diferentes episódios de podcasts separados por categoria. Este projeto visa facilitar o acesso e a organização de episódios de podcasts em formato de vídeo, proporcionando uma experiência de navegação intuitiva e agradável para os usuários.
+## Features
 
-## Funcionalidades
+- **List all podcast episodes**: Get a complete list of available podcast episodes
+- **Filter episodes by podcast name**: Search for specific episodes by podcast name
+- **Health check endpoint**: Monitor API status
+- **CORS enabled**: Cross-origin resource sharing support
+- **Type-safe**: Built with TypeScript for better development experience
+- **Graceful shutdown**: Proper handling of termination signals
+- **Error handling**: Comprehensive error management
 
-- **Listar os episódios de podcasts em sessões de categorias:** Os episódios são organizados em categorias como saúde, bodybuilder, mentalidade e humor, permitindo aos usuários explorar facilmente os conteúdos disponíveis.
-- **Filtrar episódios por nome de podcast:** Os usuários podem realizar buscas específicas por nome de podcast, facilitando o acesso aos episódios desejados.
+## API Endpoints
 
-## Implementação
+### List All Episodes
+- **GET** `/api/episodes`
+- Returns all available podcast episodes
 
-### Listar os episódios de podcasts em sessões de categorias
+### Filter Episodes
+- **GET** `/api/episodes/filter?p={podcastName}`
+- Returns episodes filtered by podcast name
 
-- **Endpoint:** `GET /list`
-- **Descrição:** Retorna uma lista de episódios de podcasts organizados por categorias.
-- **Exemplo de resposta:**
+### Health Check
+- **GET** `/api/health`
+- Returns API status and timestamp
+
+## Quick Start
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd podcast-manager-api
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment**
+   ```bash
+   cp .env.example .env
+   ```
+
+4. **Start development server**
+   ```bash
+   npm run dev
+   ```
+
+5. **Access the API**
+   - Base URL: `http://localhost:3333`
+   - Health check: `http://localhost:3333/api/health`
+
+## Scripts
+
+- `npm run dev` - Start development server with hot reload
+- `npm run build` - Build for production
+- `npm start` - Start production server
+- `npm run typecheck` - Type checking without compilation
+
+## Technology Stack
+
+- **Runtime**: Node.js
+- **Language**: TypeScript
+- **Build Tool**: tsup
+- **Development**: tsx
+
+## Project Structure
+
+```
+src/
+├── controllers/     # Request handlers
+├── models/          # TypeScript interfaces
+├── repositories/    # Data access layer
+├── routes/          # Route definitions
+├── services/        # Business logic
+├── utils/           # Utility functions and constants
+├── app.ts           # Application setup
+└── server.ts        # Server entry point
+```
+
+## Example Response
 
 ```json
 [
@@ -23,31 +89,16 @@ O Podcast Manager é uma aplicação inspirada no estilo da Netflix, que permite
     "podcastName": "flow",
     "episode": "CBUM - Flow #319",
     "videoId": "pQSuQmUfS30",
-    "cover": "https://i.ytimg.com/vi/pQSuQmUfS30/maxresdefault.jpg",
-    "link": "https://www.youtube.com/watch?v=pQSuQmUfS30",
     "categories": ["saúde", "esporte", "bodybuilder"]
   },
   {
-    "podcastName": "flow",
-    "episode": "RUBENS BARRICHELLO - Flow #339",
-    "videoId": "4KDGTdiOV4I",
-    "cover": "https://i.ytimg.com/vi/4KDGTdiOV4I/maxresdefault.jpg",
-    "link": "https://www.youtube.com/watch?v=4KDGTdiOV4I",
-    "categories": ["esporte", "corrida"]
+    "podcastName": "venus",
+    "episode": "Xuxa",
+    "videoId": "00000",
+    "categories": ["humor"]
   }
 ]
 ```
-
-### Filtrar episódios por nome de podcast
-
-- **Endpoint:** `GET /episode?podcastName={nome}`
-- **Descrição:** Retorna uma lista de episódios de podcast com base no nome do podcast fornecido.
-- **Exemplo de requisição:** `GET /episode?podcastName=flow`
-
-## Tecnologias Utilizadas
-
-- **[TypeScript](https://www.typescriptlang.org/):** Linguagem de programação utilizada para o desenvolvimento do projeto.
-- **[Tsup](https://github.com/egoist/tsup):** Ferramenta de construção e empacotamento para projetos TypeScript.
 - **[Tsx](https://github.com/egoist/tsx):** Compilador TypeScript que suporta a construção de projetos.
 - **[Node.js](https://nodejs.org/):** Ambiente de execução JavaScript que permite executar código JavaScript do lado do servidor.
 - **[@types/node](https://www.npmjs.com/package/@types/node):** Pacote de definições de tipos para Node.js para auxiliar no desenvolvimento com TypeScript.

@@ -1,20 +1,20 @@
 {
-  "name": "projeto-app-flow",
+  "name": "podcast-manager-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "directories": {
-    "doc": "docs"
+  "description": "TypeScript Node.js API for podcast management without frameworks",
+  "main": "dist/server.js",
+  "engines": {
+    "node": ">=18.0.0"
   },
   "scripts": {
-    "start:dev": "tsx --env-file=.env src/server.ts",
-    "start:watch": "tsx watch --env-file=.env src/server.ts",
-    "dist": "tsup src",
-    "start:dist": "npm run dist && --env-file=.env node/server.js"
+    "build": "tsup src --format cjs --target node18",
+    "start": "node dist/server.js",
+    "dev": "tsx watch --env-file=.env src/server.ts",
+    "typecheck": "tsc --noEmit"
   },
-  "keywords": [],
+  "keywords": ["podcast", "api", "typescript", "node"],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.11.28",
     "tsup": "^8.0.2",

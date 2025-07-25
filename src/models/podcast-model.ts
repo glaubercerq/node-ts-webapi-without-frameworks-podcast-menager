@@ -1,6 +1,6 @@
 export interface PodcastModel {
-  podcastName: string;
-  episode: string;
-  videoId: string;
-  categories: string[];
+  readonly podcastName: string;
+  readonly episode: string;
+  readonly videoId: string;
+  readonly categories: readonly string[];
 }
