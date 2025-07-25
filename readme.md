@@ -114,6 +114,4 @@ src/
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir problemas ou enviar solicitações de recebimento (pull requests) para melhorar este projeto.
 
-## Licença
 
-Este projeto está licenciado sob a [MIT License](LICENSE).
